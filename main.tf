@@ -5,30 +5,11 @@ resource "aws_iam_user" "U_ahmed" {
 }
 
 
-#Define the IAM Policy
-resource "aws_iam_policy" "full_access_policy" {
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "ec2:*",
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
-}
-
-#attachment_policy
-resource "aws_iam_user_policy_attachment" "attach_ec2_policy" {
+#Define the IAM Policy AWS Managed policy
+resource "aws_iam_user_policy_attachment" "user_ahmed_policy_attachment" {
   user       = aws_iam_user.U_ahmed.id
-  policy_arn = aws_iam_policy.full_access_policy.id
-}
-
-
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+} 
 
 
 #create IAM USER
